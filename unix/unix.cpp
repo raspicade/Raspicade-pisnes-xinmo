@@ -1139,6 +1139,38 @@ uint32 S9xReadJoypad (int which1)
 	//Only handle two joysticks
 	if(which1 > 1) return val;
 
+	int player = which1;
+	if(Settings.XinMoEnabled){player = 0;}
+	//patch by https://github.com/mholgatem/PiSNES/
+	if(which1 == 0) {
+		if (keyssnes[sfc_key[L_1]] == SDL_PRESSED || joy_buttons[player][sfc_joy[L_1]])		val |= SNES_TL_MASK;
+		if (keyssnes[sfc_key[R_1]] == SDL_PRESSED || joy_buttons[player][sfc_joy[R_1]])		val |= SNES_TR_MASK;
+		if (keyssnes[sfc_key[X_1]] == SDL_PRESSED || joy_buttons[player][sfc_joy[X_1]])		val |= SNES_X_MASK;
+		if (keyssnes[sfc_key[Y_1]] == SDL_PRESSED || joy_buttons[player][sfc_joy[Y_1]])		val |= SNES_Y_MASK;
+		if (keyssnes[sfc_key[B_1]] == SDL_PRESSED || joy_buttons[player][sfc_joy[B_1]])		val |= SNES_B_MASK;
+		if (keyssnes[sfc_key[A_1]] == SDL_PRESSED || joy_buttons[player][sfc_joy[A_1]])		val |= SNES_A_MASK;
+		if (keyssnes[sfc_key[START_1]] == SDL_PRESSED || joy_buttons[player][sfc_joy[START_1]])	val |= SNES_START_MASK;
+		if (keyssnes[sfc_key[SELECT_1]] == SDL_PRESSED || joy_buttons[player][sfc_joy[SELECT_1]])	val |= SNES_SELECT_MASK;
+		if (keyssnes[sfc_key[UP_1]] == SDL_PRESSED || joy_axes[player][joyaxis_UD_1] == UP)		val |= SNES_UP_MASK;
+		if (keyssnes[sfc_key[DOWN_1]] == SDL_PRESSED || joy_axes[player][joyaxis_UD_1] == DOWN)	val |= SNES_DOWN_MASK;
+		if (keyssnes[sfc_key[LEFT_1]] == SDL_PRESSED || joy_axes[player][joyaxis_LR_1] == LEFT)	val |= SNES_LEFT_MASK;
+		if (keyssnes[sfc_key[RIGHT_1]] == SDL_PRESSED || joy_axes[player][joyaxis_LR_1] == RIGHT)	val |= SNES_RIGHT_MASK;
+	} else {
+		if (keyssnes[sfc_key[L_2]] == SDL_PRESSED  || joy_buttons[player][sfc_joy[L_2]])		val |= SNES_TL_MASK;
+		if (keyssnes[sfc_key[R_2]] == SDL_PRESSED || joy_buttons[player][sfc_joy[R_2]])		val |= SNES_TR_MASK;
+		if (keyssnes[sfc_key[X_2]] == SDL_PRESSED || joy_buttons[player][sfc_joy[X_2]])		val |= SNES_X_MASK;
+		if (keyssnes[sfc_key[Y_2]] == SDL_PRESSED || joy_buttons[player][sfc_joy[Y_2]])		val |= SNES_Y_MASK;
+		if (keyssnes[sfc_key[B_2]] == SDL_PRESSED || joy_buttons[player][sfc_joy[B_2]])		val |= SNES_B_MASK;
+		if (keyssnes[sfc_key[A_2]] == SDL_PRESSED || joy_buttons[player][sfc_joy[A_2]])		val |= SNES_A_MASK;
+		if (keyssnes[sfc_key[START_2]] == SDL_PRESSED || joy_buttons[player][sfc_joy[START_2]])	val |= SNES_START_MASK;
+		if (keyssnes[sfc_key[SELECT_2]] == SDL_PRESSED || joy_buttons[player][sfc_joy[SELECT_2]])	val |= SNES_SELECT_MASK;
+		if (keyssnes[sfc_key[UP_2]] == SDL_PRESSED || joy_axes[player][joyaxis_UD_2] == UP)		val |= SNES_UP_MASK;
+		if (keyssnes[sfc_key[DOWN_2]] == SDL_PRESSED || joy_axes[player][joyaxis_UD_2] == DOWN)	val |= SNES_DOWN_MASK;
+		if (keyssnes[sfc_key[LEFT_2]] == SDL_PRESSED || joy_axes[player][joyaxis_LR_2] == LEFT)	val |= SNES_LEFT_MASK;
+		if (keyssnes[sfc_key[RIGHT_2]] == SDL_PRESSED || joy_axes[player][joyaxis_LR_2] == RIGHT)	val |= SNES_RIGHT_MASK;
+	}
+
+/*
 	if(which1 == 0) {
 		if (keyssnes[sfc_key[L_1]] == SDL_PRESSED || joy_buttons[which1][sfc_joy[L_1]])		val |= SNES_TL_MASK;
 		if (keyssnes[sfc_key[R_1]] == SDL_PRESSED || joy_buttons[which1][sfc_joy[R_1]])		val |= SNES_TR_MASK;
@@ -1166,7 +1198,7 @@ uint32 S9xReadJoypad (int which1)
 		if (keyssnes[sfc_key[LEFT_2]] == SDL_PRESSED || joy_axes[0][joyaxis_LR_2] == LEFT)	val |= SNES_LEFT_MASK;
 		if (keyssnes[sfc_key[RIGHT_2]] == SDL_PRESSED || joy_axes[0][joyaxis_LR_2] == RIGHT)	val |= SNES_RIGHT_MASK;
 	}
-
+*/
 	if (keyssnes[sfc_key[QUIT]] == SDL_PRESSED || joy_buttons[0][sfc_joy[QUIT]]) S9xExit();
 
 	if (which1==0 && (val & SNES_SELECT_MASK) && (val & SNES_START_MASK)) S9xExit();
@@ -1181,6 +1213,7 @@ void S9xParseConfigFile (void)
 
 	open_config_file();
 
+	Settings.XinMoEnabled = get_integer_conf("Joystick", "XinMoEnabled", FALSE);
 	Settings.DisplaySmoothStretch = get_integer_conf("Graphics", "DisplaySmoothStretch", 1);
 	Settings.MaintainAspectRatio = get_integer_conf("Graphics", "MaintainAspectRatio", 1);
 	Settings.DisplayBorder = get_integer_conf("Graphics", "DisplayBorder", 0);

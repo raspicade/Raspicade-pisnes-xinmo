@@ -232,6 +232,7 @@ struct SSettings{
     bool8_32  TraceDSP;
 
     // Joystick options
+    bool8_32  XinMoEnabled;
     bool8_32  SwapJoypads;
     bool8_32  JoystickEnabled;
 

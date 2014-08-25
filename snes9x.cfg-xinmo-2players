@@ -40,30 +40,29 @@ X_1=2
 Y_1=3
 L_1=4
 R_1=5
-START_1=4
-SELECT_1=5
-QUIT=99
-ACCEL=7
-QLOAD=10
-QSAVE=11
+START_1=0
+SELECT_1=6
+QUIT=7
+ACCEL=3
+QLOAD=99
+QSAVE=99
 #Joystick axis
 JA_LR=0
 JA_UD=1
 
 # player 2 button
-A_2=0
-B_2=1
-X_2=2
-Y_2=3
-L_2=4
-R_2=5
-START_2=4
-SELECT_2=5
-JA_LR_2=0
-JA_UD_2=1
-
-#XinMo (0=False, 1=True)
-XinMoEnabled=0
+A_2=10
+B_2=11
+X_2=12
+Y_2=13
+L_2=14
+R_2=15
+START_2=10
+SELECT_2=16
+ACEEL=13
+#Joystick axis
+JA_LR_2=2
+JA_UD_2=3
 
 [Graphics]
 DisplaySmoothStretch=0
