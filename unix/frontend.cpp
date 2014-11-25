@@ -349,9 +349,17 @@ static int get_keyjoy_conf (char *section, char *option, int defval)
 
 	tempint = g_key_file_get_integer(gkeyfile, section, option, &error);
 	if (!error) 
+		{
+//		printf("get_keyjoy_conf no error\n");
+//		printf("Returned Value readed from file: %d\n",tempint);
 		return tempint;
+		}
 	else 	
+		{
+//		printf("get_keyjoy_conf error\n");
+//		printf("Returned Value default: %d\n",defval);
 		return defval;
+		}
 
 }
 
@@ -410,7 +418,9 @@ static void fe_S9xInitInputDevices ()
 
     //Read joystick axis to use, default to 0 & 1
     joyaxis_LR_1 = get_keyjoy_conf("Joystick", "JA_LR_1", 0);
+//  printf("JA_LR_1 joyaxis_LR_1 =  %d\n", joyaxis_LR_1);
     joyaxis_UD_1 = get_keyjoy_conf("Joystick", "JA_UD_1", 1);
+//  printf("JA_UD_1 joyaxis_UD_1 =  %d\n", joyaxis_UD_1);
 
 	close_config_file();
 }
